@@ -1,5 +1,6 @@
-import pyttsx3
-import speech_recognition as sr
+import pyttsx3 #install "pip install pyttsx3"
+import speech_recognition as sr#install "pip install speechrecoognition"
+
 Assistant = pyttsx3.init('sapi5')
 voices = Assistant.getProperty('voices')
 Assistant.setProperty('voices', voices[1].id)
