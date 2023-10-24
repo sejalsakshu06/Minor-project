@@ -613,8 +613,6 @@ def rockyface():
     pen = rockingstaryash()
     pen.draw()
 def pikachu():
-
-
     def gajurel(x, y):
         turtle.setx(x)
         turtle.sety(y)
@@ -1148,8 +1146,9 @@ def pikachu():
         cartoon = Cartoon()
         cartoon.start()
         turtle.mainloop()
+    main()
 def Doremon():
-    from turtle import *
+
 
     # Doraemon with Python Turtle
     def ankur(x, y):
@@ -1493,7 +1492,7 @@ def TaskExe():
                 Speak("Okay let me draw the Pikachu for you")
                 pikachu()
                 break
-            elif 'draw Doremon' in query:
+            elif 'draw Doraemon' in query:
                 Speak("Okay let me draw the doremon for you")
                 Doremon()
                 break
