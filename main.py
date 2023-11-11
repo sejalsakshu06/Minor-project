@@ -1,5 +1,5 @@
 import pyttsx3 #pip install pyttsx3
-import speech_recognition as sr #pip install speech_recognition
+import speech_recognition as sr #pip install speechrecognition
 import requests #pip install requests
 import turtle #pip install turtle
 
