@@ -1498,5 +1498,5 @@ def TaskExe():
                 break
 
 TaskExe()
-takecommand()
+
 
