@@ -4,7 +4,7 @@ import requests #pip install requests
 import turtle #pip install turtle
 import webbrowser #pip install webbrowser
 import pywhatkit #pip install pywhatkit
-import wikipedia #pip install wikipedia
+import wikipedia #pip install wikipedia ;
 import os #pip install os
 import pyautogui #pip install pyautogui
 import keyboard
