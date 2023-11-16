@@ -1,13 +1,14 @@
+from distutils.cmd import Command
 import pyttsx3 #pip install pyttsx3
 import speech_recognition as sr #pip install speechrecognition
 import requests #pip install requests
 import turtle #pip install turtle
 import webbrowser #pip install webbrowser
 import pywhatkit #pip install pywhatkit
-import wikipedia #pip install wikipedia ;
-import os #pip install os
+import wikipedia #pip install wikipedia
+import os 
 import pyautogui #pip install pyautogui
-import keyboard
+import keyboard #pip install keyboard
 
 # Initialize the speech recognizer
 recognizer = sr.Recognizer()
@@ -43,6 +44,147 @@ def Speak(audio):
     print("Assistant: " + audio)  # Print the message
     Assistant.say(audio)  # Speak the message
     Assistant.runAndWait()
+
+def Music():
+        Speak("Tell me the Name of the Song")
+        musicName = takecommand()
+        if 'like you do' in musicName:
+            pywhatkit.playonyt(musicName)
+        Speak("Your song has been Started,Enjoy")
+    
+def WhatsApp():
+        Speak("Tell me the name of person")
+        name = takecommand()
+
+        if 'Mumma' in name:
+            Speak("Tell me the mesage!")
+            msg = takecommand()
+            Speak("Tell me the Time Sir")
+            Speak("Time in Hour")
+            hour = int(takecommand())
+            Speak("Time in Minutes!")
+            min = int(takecommand())
+            pywhatkit.sendwhatmsg("+917876757577",msg,hour,min,20)
+            Speak("OK Sir , Sending Whatsapp Message !")
+
+        elif 'Cutu' in name:
+            Speak("Tell me the mesage!")
+            msg = takecommand()
+            Speak("Tell me the Time Sir")
+            Speak("Time in Hour")
+            hour = int(takecommand())
+            Speak("Time in Minutes!")
+            min = int(takecommand())
+            pywhatkit.sendwhatmsg("+918219424243",msg,hour,min,20)
+            Speak("OK Sir , Sending Whatsapp Message !")
+
+        elif 'papa' in name:
+            Speak("Tell me the mesage!")
+            msg = takecommand()
+            Speak("Tell me the Time Sir")
+            Speak("Time in Hour")
+            hour = int (takecommand())
+            Speak("Time in Minutes!")
+            min = int(takecommand())
+            pywhatkit.sendwhatmsg("+919805662339",msg,hour,min,20)
+            Speak("OK Sir , Sending Whatsapp Message !")
+
+        else:
+            Speak("Tell me the Phone Number!")
+            phone = int(takecommand())
+            ph = '+91' + str(phone)
+            msg = takecommand()
+            Speak("Tell me the Time Sir")
+            Speak("Time in Hour")
+            hour = int(takecommand())
+            Speak("Time in Minutes!")
+            min = int(takecommand())
+            pywhatkit.sendwhatmsg(ph,msg,hour,min,20)
+            Speak("OK Sir , Sending Whatsapp Message !")
+    
+
+def OpenApps():
+        Speak('OK Sir, Wait a second!')
+        
+        if 'Chrome' in query:
+            os.startfile("C:\Program Files\Google\Chrome\Application\chrome.exe")
+
+        elif 'Edge' in query:
+            os.startfile("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
+
+        elif 'Facebook' in query:
+            webbrowser.open('https://www.facebook.com/login/')
+
+        elif 'Instagram' in query:
+            webbrowser.open('https://www.instagram.com/accounts/login/')
+
+        Speak("Your command has been successfully completed")    
+
+def CloseApps():
+        Speak("OK Sir,Wait a Second!")
+
+        if 'Instagram' in query:
+            os.system("TASKKILL /F /im Chrome.exe")
+
+        if 'Facebook' in query:
+            os.system("TASKKILL /F /im Chrome.exe")
+
+        if 'Edge' in query:
+            os.system("TASKKILL /F /im Edge.exe")
+
+        if 'Chrome' in query:
+            os.system("TASKKILL /F /im Chrome.exe")
+
+def YoutubeAuto():
+        Speak("What's your command?")
+        command = takecommand()
+
+        if 'restart' in query:
+            keyboard.press('0')
+
+        elif 'mute' in query:
+            keyboard.press('m')
+
+        elif 'skip' in query:
+            keyboard.press('l')
+
+        elif 'back' in query:
+            keyboard.press('j')
+
+        elif 'full screen' in query:
+            keyboard.press('f')
+
+        elif 'film mode' in query:
+            keyboard.press('t')
+
+        elif 'pause' in query:
+            keyboard.press('k')
+
+        Speak('Done Sir')
+
+def ChromeAuto():
+        Speak('Chrome Automation Started!')
+
+        command = takecommand()
+
+        if 'close this tab' in command:
+            keyboard.press_and_release('ctrl + w')
+
+        elif 'open new tab' in command:
+            keyboard.press_and_release('ctrl + t')
+
+        elif 'open new window' in command:
+            keyboard.press_and_release('ctrl + n')
+
+        elif 'history' in command:
+            keyboard.press_and_release('ctrl + h')
+
+def youtubeSearch():
+    query=query.replace("VIRTIGO", "")
+    query=query.replace("youtube search", "")
+    web='https://www.youtube.com/results?search_query='+ query
+    webbrowser.open(web)
+    Speak("Done Sir!")
 
 def RADHAkrishna():
     import turtle
@@ -1451,15 +1593,6 @@ def Doremon():
         write('by Ankur Gajurel', font=("Bradley Hand ITC", 30, "bold"))
         mainloop()
 
-
-def youtubeSearch():
-    query=query.replace("VIRTIGO", "")
-    query=query.replace("youtube search", "")
-    web='https://www.youtube.com/results?search_query='+ query
-    webbrowser.open(web)
-    Speak("Done Sir!")
-
-
 # Main function to execute the assistant
 def TaskExe():
     
@@ -1471,108 +1604,6 @@ def TaskExe():
     except requests.ConnectionError:
         Speak("Please check your internet connection. Sorry for the inconvenience.")
         return
-
-    def Music():
-        Speak("Tell me the Name of the Song")
-        musicName = takecommand()
-        if 'like you do' in musicName:
-            pywhatkit.playonyt(musicName)
-        Speak("Your song has been Started,Enjoy")
-
-    def WhatsApp():
-        Speak("Tell me the name of person")
-        name = takecommand()
-
-        if 'Mumma' in name:
-            Speak("Tell me the mesage!")
-            msg = takecommand()
-            Speak("Tell me the Time Sir")
-            Speak("Time in Hour")
-            hour = int(takecommand())
-            Speak("Time in Minutes!")
-            min = int(takecommand())
-            pywhatkit.sendwhatmsg("+917876757577",msg,hour,min,20)
-            Speak("OK Sir , Sending Whatsapp Message !")
-
-        elif 'Cutu' in name:
-            Speak("Tell me the mesage!")
-            msg = takecommand()
-            Speak("Tell me the Time Sir")
-            Speak("Time in Hour")
-            hour = int(takecommand())
-            Speak("Time in Minutes!")
-            min = int(takecommand())
-            pywhatkit.sendwhatmsg("+918219424243",msg,hour,min,20)
-            Speak("OK Sir , Sending Whatsapp Message !")
-
-        elif 'Papa' in name:
-            Speak("Tell me the mesage!")
-            msg = takecommand()
-            Speak("Tell me the Time Sir")
-            Speak("Time in Hour")
-            hour = int(takecommand())
-            Speak("Time in Minutes!")
-            min = int(takecommand())
-            pywhatkit.sendwhatmsg("+919805662339",msg,hour,min,20)
-            Speak("OK Sir , Sending Whatsapp Message !")
-
-        else:
-            Speak("Tell me the Phone Number!")
-            phone = int(takecommand())
-            ph = '+91' + str(phone)
-            msg = takecommand()
-            Speak("Tell me the Time Sir")
-            Speak("Time in Hour")
-            hour = int(takecommand())
-            Speak("Time in Minutes!")
-            min = int(takecommand())
-            pywhatkit.sendwhatmsg(ph,msg,hour,min,20)
-            Speak("OK Sir , Sending Whatsapp Message !")
-
-    def OpenApps():
-        Speak('OK Sir, Wait a second!')
-        
-        if 'Chrome' in query:
-            os.startfile("C:\Program Files\Google\Chrome\Application\chrome.exe")
-
-        elif 'Edge' in query:
-            os.startfile("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
-
-        elif 'Facebook' in query:
-            webbrowser.open('https://www.facebook.com/login/')
-
-        elif 'Instagram' in query:
-            webbrowser.open('https://www.instagram.com/accounts/login/')
-
-        Speak("Your command has been successfully completed")
-
-    def CloseApps():
-        Speak("OK Sir,Wait a Second!")
-
-        if 'Instagram' in query:
-            os.system("TASKKILL /F /im Chrome.exe")
-
-        if 'Facebook' in query:
-            os.system("TASKKILL /F /im Chrome.exe")
-
-        if 'Edge' in query:
-            os.system("TASKKILL /F /im Edge.exe")
-
-        if 'Chrome' in query:
-            os.system("TASKKILL /F /im Chrome.exe")
-
-    def YoutubeAuto():
-        Speak("What's your command?")
-        comm = takecommand()
-
-        if 'pause' in comm:
-            keyboard.press('space bar')
-
-
-        
-
-
-
 
     while True:
         query = takecommand()
@@ -1698,6 +1729,49 @@ def TaskExe():
             elif 'close Instagram' in query:
                 CloseApps()
 
+            elif 'pause' in query:
+                keyboard.press('space bar')
+
+            elif 'restart' in query:
+                keyboard.press('0')
+
+            elif 'mute' in query:
+                keyboard.press('m')
+
+            elif 'skip' in query:
+                keyboard.press('l')
+
+            elif 'back' in query:
+                keyboard.press('j')
+
+            elif 'full screen' in query:
+                keyboard.press('f')
+
+            elif 'film mode' in query:
+                keyboard.press('t')
+
+            elif 'pause' in query:
+                keyboard.press('k')
+
+            elif 'youtube tool' in query:
+                YoutubeAuto()
+
+            elif 'close this tab' in query:
+                keyboard.press_and_release('ctrl + w')
+
+            elif 'open new tab' in query:
+                keyboard.press_and_release('ctrl + t')
+
+            elif 'open new window' in query:
+                keyboard.press_and_release('ctrl + n')
+
+            elif 'history' in query:
+                keyboard.press_and_release('ctrl + h')
+
+            elif 'chrome automation' in query:
+                ChromeAuto()
+
+            
 
 
 TaskExe()
