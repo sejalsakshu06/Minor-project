@@ -14,6 +14,7 @@ from pyowm import OWM
 import requests
 import random
 
+
 # Initialize the speech recognizer
 recognizer = sr.Recognizer()
 
@@ -121,11 +122,6 @@ def Speak(audio):
     Assistant.say(audio)  # Speak the message
     Assistant.runAndWait()
     return statement  # Return the spoken statement
-
-
-
-
-
 def get_weather(city_name):
     owm = OWM('3b91764244d706e6dceab2dc46490cb5')  # Replace with your OpenWeatherMap API key
     mgr = owm.weather_manager()
@@ -137,8 +133,6 @@ def get_weather(city_name):
     weather_info += f"The temperature is {w.temperature('celsius')['temp']}°C."
 
     return weather_info
-
-
 # Function to get current time
 def get_current_time():
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
@@ -158,9 +152,6 @@ def get_english_joke():
     statement = Speak(joke)
     print(statement)
     return statement
-
-
-
 # Function to fetch a random Hindi joke
 def get_hindi_joke():
     jokes = [
@@ -176,9 +167,6 @@ def get_hindi_joke():
     return Speak(joke)
 
 # Function to play a song on Spotify
-
-
-
 def play_music():
     music_dir = "C:\\Users\\sejal\\Music"
     songs = os.listdir(music_dir)
@@ -197,23 +185,15 @@ def play_music():
             Speak(f"Now playing {user_input} from YouTube.")
     else:
         Speak("No music files found in the specified directory.")
-
-
-
-
 # Replace 'YOUR_NEWS_API_KEY' with the actual API key you obtained from News API
 NEWS_API_KEY = 'c099a32bdc704307a93c846fc0edbf06'
-
-
 # Function to get today's news headlines
 def get_news(num_articles=5):
     news_url = f'https://newsapi.org/v2/top-headlines?country=us&apiKey={NEWS_API_KEY}'  # Adjust the country code if needed
     response = requests.get(news_url)
-
     if response.status_code == 200:
         news_data = response.json()
         articles = news_data['articles']
-
         if articles:
             news_info = "Here are today's headlines:\n"
             for idx, article in enumerate(articles[:num_articles]):
@@ -223,15 +203,12 @@ def get_news(num_articles=5):
             return "Sorry, I couldn't fetch the latest news at the moment."
     else:
         return "Sorry, I couldn't fetch the latest news at the moment."
-
 def get_sports_news(num_articles=5):
     sports_url = f'https://newsapi.org/v2/top-headlines?category=sports&apiKey={NEWS_API_KEY}'
     response = requests.get(sports_url)
-
     if response.status_code == 200:
         sports_data = response.json()
         articles = sports_data.get('articles', [])
-
         if articles:
             sports_headlines = [article['title'] for article in random.sample(articles, min(num_articles, len(articles)))]
             return f"Here are the latest sports updates:\n" + "\n".join(f"{idx + 1}. {headline}" for idx, headline in enumerate(sports_headlines))
@@ -245,7 +222,6 @@ def youtubeSearch(query):
     web = 'https://www.youtube.com/results?search_query=' + query
     webbrowser.open(web)
     Speak("Done Sir!")
-
 # Main function to execute the assistant
 def TaskExe():
     try:
@@ -259,22 +235,16 @@ def TaskExe():
         weather_info = get_weather(city_name)
         statement = Speak(weather_info)
         print(statement)
-
-
         statement = Speak("I am ready to assist you how can i help you?")
         print(statement)
-
-
         try:
             # Check if the internet is available by making a simple request
             response = requests.get("https://www.google.com")
         except requests.ConnectionError:
             statement = Speak("Please check your internet connection. Sorry for the inconvenience.")
             print(statement)  # Print the spoken statement
-
         while True:
             query = takecommand()
-
             if query is not None:
                 if 'tell me Hindi joke' in query:
                     joke_info = get_hindi_joke()
@@ -314,13 +284,15 @@ def TaskExe():
                                               "I'm busy helping users like you!"])
                     statement = Speak(response)
                     print(statement)
-                elif 'how is the weather today' in query:
-                    response = "I'm sorry, I don't have the capability to check the weather at the moment."
-                    statement = Speak(response)
+                elif 'how is the weather today' in query or'weather':
+                    city_name = "Solan"  # Replace with your desired city
+                    weather_info = get_weather(city_name)
+                    statement = Speak(weather_info)
                     print(statement)
 
+
                 elif 'what is your favorite color' in query:
-                    response = "I don't have a favorite color. I'm here to assist you with any questions or tasks you have."
+                    response = "I love purple color."
                     statement = Speak(response)
                     print(statement)
                 elif 'what do you like to talk about' in query:
@@ -949,11 +921,7 @@ def TaskExe():
                         Speak(response)
 
 
-                elif 'weather' in query:
-                    city_name = "Solan"  # Replace with your desired city
-                    weather_info = get_weather(city_name)
-                    statement = Speak(weather_info)
-                    print(statement)
+
                 elif 'time' in query:
                     time_info = get_current_time()
                     statement = Speak(time_info)
@@ -1048,7 +1016,13 @@ def TaskExe():
         Speak("My functions are limited kindly say something that is not beyond my limits how can i help you ")
 
 
-
+def open_manual_input_file():
+    try:
+        with open("manual_input_file.py", "r") as file:
+            script_content = file.read()
+        exec(script_content)
+    except Exception as e:
+        print(f"Error: {e}")
 # Create a frame to contain the buttons and align them horizontally
 button_frame = ttk.Frame(window)
 button_frame.pack(pady=10)
@@ -1056,6 +1030,11 @@ button_frame.pack(pady=10)
 # Create a button in the Tkinter window to start the assistant task
 assistant_button = ttk.Button(button_frame, text="Start Assistant", command=lambda: threading.Thread(target=TaskExe).start(), style='TButton')
 assistant_button.pack(side=tk.LEFT, padx=5)
+# Create a button to open the manual input file
+manual_input_button = ttk.Button(button_frame, text="Chat Bot", command=open_manual_input_file, style='TButton')
+manual_input_button.pack(side=tk.LEFT, padx=5)
+
+
 
 # Create an "Exit" button
 exit_button = ttk.Button(button_frame, text="Exit", command=window.destroy, style='Exit.TButton')
