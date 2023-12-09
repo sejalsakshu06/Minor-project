@@ -46,7 +46,7 @@ def wish_me():
 def speak_date():
     today = datetime.date.today().strftime("%A, %B %d, %Y")
     response=Speak(f"Today is {today}")
-    bot_statement = "Bot -> " + response
+    bot_statement = "VERTIGO -> " + response
     txt.insert(END, "\n" + bot_statement)
     Speak(response)
 def get_weather(city_name):
@@ -58,7 +58,7 @@ def get_weather(city_name):
 
     weather_info = f"The weather in {city_name} is {w.detailed_status}. "
     weather_info += f"The temperature is {w.temperature('celsius')['temp']}°C."
-    bot_statement = "Bot -> " + weather_info
+    bot_statement = "VERTIGO -> " + weather_info
     txt.insert(END, "\n" + bot_statement)
     Speak(bot_statement)
     return weather_info
@@ -75,7 +75,7 @@ def get_english_joke():
     ]
     joke = random.choice(jokes)
     response = Speak(joke)
-    bot_statement = "Bot -> " + response
+    bot_statement = "VERTIGO -> " + response
     txt.insert(END, "\n" + bot_statement)
     Speak(response)
 
@@ -88,7 +88,7 @@ def get_hindi_joke():
     ]
     joke = random.choice(jokes)
     response = Speak(joke)
-    bot_statement = "Bot -> " + response
+    bot_statement = "VERTIGO -> " + response
     txt.insert(END, "\n" + bot_statement)
     Speak(response)
 
@@ -135,7 +135,24 @@ def get_sports_news(num_articles=5):
             return "Sorry, I couldn't fetch the latest sports news at the moment."
     else:
         return "Sorry, I couldn't fetch the latest sports news at the moment."
+def play_music():
+     music_dir = "C:\\Users\\sejal\\Music"
+     songs = os.listdir(music_dir)
 
+     if songs:
+
+         user_input = entry.get().lower()
+
+         # Check if the provided song name is in the list of songs
+         if user_input in songs:
+             os.startfile(os.path.join(music_dir, user_input))
+             Speak(f"Now playing {user_input}")
+         else:
+
+             pywhatkit.playonyt(user_input)
+             Speak(f"Now playing {user_input} from YouTube.")
+     else:
+         Speak("No music files found in the specified directory.")
 # Function to search YouTube
 def youtube_search(query):
     query = query.replace("VERTIGO", "")
@@ -146,13 +163,17 @@ def youtube_search(query):
 
 # Send function
 def send():
-    query = entry_widget.get().lower()
+    query = entry.get().lower()
     if query == "helo":
+        statement="user=>"+query
+        txt.insert(END, "\n" + statement)
         response = "Hi there, how can I help?"
         bot_statement = "VERTIGO -> " + response
         txt.insert(END, "\n" + bot_statement)
         Speak(response)
     elif query == "how are you":
+        statement = query
+        txt.insert(END, "\n" + statement)
         response = "I'm doing well, thank you!"
         bot_statement = "VERTIGO -> " + response
         txt.insert(END, "\n" + bot_statement)
@@ -160,11 +181,13 @@ def send():
     elif 'hello' in query or 'hey' in query or 'hii' in query:
         response = random.choice(
             ["Hello! How can I assist you?", "Hi there!", "Hey! What can I do for you?",
-             "Howdy! What brings you here?", "Greetings! How may I help you?",
+
              "Good morning! How can I be of service?", "Good afternoon! What do you need assistance with?",
              "Good evening! How may I assist you?", "Hey there! How can I help?",
              "Hi! What's on your mind?",
              "Hello there! How can I assist you today?"])
+        statement = query
+        txt.insert(END, "\n" + statement)
         bot_statement = "VERTIGO -> " + response
         txt.insert(END, "\n" + bot_statement)
         Speak(response)
@@ -172,6 +195,8 @@ def send():
         response = random.choice(["I'm doing well, thank you!", "I'm great! How can I assist you?",
                                   "I'm here and ready to help!", "I'm good, thanks for asking.",
                                   "I'm functioning at full capacity! How may I assist you today?"])
+        statement = query
+        txt.insert(END, "\n" + statement)
         bot_statement = "VERTIGO-> " + response
         txt.insert(END, "\n" + bot_statement)
         Speak(response)
@@ -180,6 +205,8 @@ def send():
         response = random.choice(["My day is going smoothly, thank you!", "It's been a good day so far.",
                                   "I'm having a productive day! How can I help you?",
                                   "Every day is a good day for assistance! What can I do for you?"])
+        statement = query
+        txt.insert(END, "\n" + statement)
         bot_statement = "VERTIGO -> " + response
         txt.insert(END, "\n" + bot_statement)
         Speak(response)
@@ -403,7 +430,7 @@ def send():
         txt.insert(END, "\n" + bot_statement)
         Speak(response)
 
-        travel_preference =entry_widget.get().lower()
+        travel_preference =entry.get().lower()
 
         if travel_preference:
             # Mapping user preferences to travel categories
@@ -827,7 +854,7 @@ def send():
         bot_statement = "VERTIGO -> " + response
         txt.insert(END, "\n" + bot_statement)
         Speak(response)
-        user_response = entry_widget.get().lower()
+        user_response = entry.get().lower()
         if user_response and 'yes' in user_response:
             response = "Great! Let's explore some online games. Opening a free online game website for you."
             Speak(response)
@@ -890,7 +917,7 @@ def send():
         bot_statement = "Bot -> " + statement
         txt.insert(END, "\n" + bot_statement)
         Speak(statement)
-        name =entry_widget.get().lower()
+        name =entry.get().lower()
         web = 'https://www.' + name + '.com'
         webbrowser.open(web)
         Speak("Done sir")
@@ -904,14 +931,18 @@ def send():
         bot_statement = "VERTIGO-> " + statement
         txt.insert(END, "\n" + bot_statement)
         Speak(statement)
-        videoName =entry_widget.get().lower()
+        videoName =entry.get().lower()
         pywhatkit.playonyt(videoName)
         statement = Speak("Your video has been Started, Enjoy")
         bot_statement = "VERTIGO-> " + statement
         txt.insert(END, "\n" + bot_statement)
         Speak(statement)
 
-
+    elif 'play music' in query or 'music please' in query or 'song recommendation' in query or 'music suggestion' in query:
+        response = random.choice(["Sure, playing some music for you!", "Let me play the song for you"])
+        statement = Speak(response)
+        print(statement)
+        play_music()
     elif 'Wikipedia' in query or 'Wikipedia Search' in query:
         response=Speak("searching wikipedia.....")
         query = query.replace("jarvis", "")
@@ -978,8 +1009,8 @@ scrollbar.config(command=txt.yview)
 
 # Entry widget using pack
 # Create an Entry widget and pack it into the window
-entry_widget = tk.Entry(root)
-entry_widget.pack()
+entry = tk.Entry(root)
+entry.pack()
 
 # Button using pack
 send_button = Button(root, text="Send", font=FONT_BOLD, bg=BG_GRAY, command=send)
