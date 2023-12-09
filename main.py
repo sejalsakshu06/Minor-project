@@ -13,8 +13,6 @@ import datetime
 from pyowm import OWM
 import requests
 import random
-
-
 # Initialize the speech recognizer
 recognizer = sr.Recognizer()
 
@@ -24,54 +22,41 @@ voices = Assistant.getProperty('voices')
 Assistant.setProperty('voice', voices[1].id)
 window = tk.Tk()
 window.title("Vertigo Assistant")  # Set the window title
-
 # Load the initial GIF
 gif_path = "X:\\python project\\vertigo.gif"
 gif = Image.open(gif_path)
-
 # Convert the GIF to a sequence of PhotoImage objects
 photo_sequence = [ImageTk.PhotoImage(frame) for frame in ImageSequence.Iterator(gif)]
-
 # Function to update the GIF displayed
 def update_gif(index):
     label.configure(image=photo_sequence[index])
     window.after(100, update_gif, (index + 1) % len(photo_sequence))
-
 # Create a label to display the GIF
 label = tk.Label(window)
 label.pack()
-
 # Create a label to display the assistant's reply
 reply_label = tk.Label(window, text="", font=("Helvetica", 12), fg="black")  # Change text color to black
 reply_label.pack()
-
 # Create a label to display the listening status
 listening_label = tk.Label(window, text="", font=("Helvetica", 12), fg="black")
 listening_label.pack()
-
 # Start the animation with the initial GIF
 window.after(0, update_gif, 0)
-
 # Create an entry widget for user input
 user_input = tk.StringVar()
 entry = ttk.Entry(window, textvariable=user_input, font=("Helvetica", 12))
 entry.pack(pady=10, padx=20, fill=tk.X, ipady=5)
-
 # Function to handle window closing
 def on_close():
     window.destroy()
-
 # Set the close event handler for the window
 window.protocol("WM_DELETE_WINDOW", on_close)
-
 # Function to update the reply label in the Tkinter window
 def update_reply_label(text):
     reply_label.config(text=text)
-
 # Function to update the listening status label
 def update_listening_label(text):
     listening_label.config(text=text)
-
 # Function to capture voice command
 def takecommand():
     microphone = sr.Microphone()
@@ -96,7 +81,6 @@ def takecommand():
         # Update the reply label with the error message
         update_reply_label(statement)
         return None  # Return None when the command is not understood
-
 # Function to wish based on the time
 def wish_me():
     hour = int(datetime.datetime.now().hour)
@@ -166,7 +150,9 @@ def get_hindi_joke():
     print(statement)
     return Speak(joke)
 
+
 # Function to play a song on Spotify
+
 def play_music():
     music_dir = "C:\\Users\\sejal\\Music"
     songs = os.listdir(music_dir)
@@ -229,9 +215,9 @@ def TaskExe():
         print(statement)
         wish_me()
         time_info = get_current_time()
-        statement = Speak("It's " + time_info)
+        statement = Speak(time_info)
         print(statement)
-        city_name = "Solan"  # Replace with your desired city
+        city_name = "Shimla"  # Replace with your desired city
         weather_info = get_weather(city_name)
         statement = Speak(weather_info)
         print(statement)
@@ -265,7 +251,7 @@ def TaskExe():
                          "Hello there! How can I assist you today?"])
                     statement=Speak(response)
                     print (statement)
-                elif 'how are you' in query:
+                elif 'how are you' in query or 'h r u' in query:
                     response = random.choice(["I'm doing well, thank you!", "I'm great! How can I assist you?",
                                               "I'm here and ready to help!", "I'm good, thanks for asking.",
                                               "I'm functioning at full capacity! How may I assist you today?"])
@@ -283,11 +269,6 @@ def TaskExe():
                                               "Just here, waiting for your commands.",
                                               "I'm busy helping users like you!"])
                     statement = Speak(response)
-                    print(statement)
-                elif 'how is the weather today' in query or'weather':
-                    city_name = "Solan"  # Replace with your desired city
-                    weather_info = get_weather(city_name)
-                    statement = Speak(weather_info)
                     print(statement)
 
 
@@ -310,7 +291,7 @@ def TaskExe():
                     statement = Speak(response)
                     print(statement)
 
-                elif "what's your favorite book" in query:
+                elif "what's your favorite book" in query or  "recommend books" in query or  "famous books" in query:
                     response = "I don't have personal preferences for books. However, I can help you find information or recommend books based on your interests. What genre are you into?"
                     statement = Speak(response)
                     print(statement)
@@ -362,7 +343,7 @@ def TaskExe():
                     statement = Speak(response)
                     print(statement)
                 elif 'what\'s the weather like?' in query or 'weather forecast' in query or 'is it going to rain today?' in query or 'temperature today' in query or 'weather report' in query:
-                    city_name = "Solan"  # Replace with your desired city
+                    city_name = "Shimla"  # Replace with your desired city
                     weather_info = get_weather(city_name)
                     statement = Speak(weather_info)
                     print(statement)
@@ -432,6 +413,7 @@ def TaskExe():
                     print(statement)
                     # Open Google Maps in the default web browser
                     webbrowser.open("https://www.google.com/maps/")
+
                 elif 'latest news' in query or 'news updates' in query or 'what\'s happening?' in query or 'current events' in query:
                     response = random.choice(
                         ["Let me fetch the latest news for you.", "Here are the top headlines: [news_headlines]",
@@ -982,20 +964,20 @@ def TaskExe():
                 elif 'Chrome' in query:
                     subprocess.run("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe")
 
-                elif 'edge' in query:
+                elif 'edge' in query or 'open edge' in query:
                     subprocess.run("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe")
                 elif 'control panel' in query:
                     subprocess.run("C:\\Windows\\System32\\control.exe")
 
-                elif 'Facebook' in query:
+                elif 'Facebook' in query or 'open Facebook' in query:
                     webbrowser.open('https://www.facebook.com/login/')
-                elif 'Instagram' in query:
+                elif 'Instagram' in query or 'open Instagram' in query:
                     webbrowser.open('https://www.instagram.com/accounts/login/')
 
-                elif 'Netflix' in query:
+                elif 'Netflix' in query or 'open Netflix' in query:
                     webbrowser.open('https://www.netflix.com/login/')
-                elif 'netflix' in query or 'open netflix' in query:
-                    webbrowser.open('https://www.netflix.com/login/')
+                elif 'whatsapp' in query or 'open whatsapp' in query:
+                    webbrowser.open('https://web.whatsapp.com/')
                 elif 'date' in query:
                     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
                     Speak(f"Today's date is {current_date}")
@@ -1007,7 +989,8 @@ def TaskExe():
                 elif 'calendar' in query:
                     Speak("Sure, checking today's date.")
                     speak_date()
-
+            else:
+                print("sorry my functions are limited ")
 
 
     except Exception as e:
@@ -1018,6 +1001,7 @@ def TaskExe():
 
 def open_manual_input_file():
     try:
+        import manual_input_file
         with open("manual_input_file.py", "r") as file:
             script_content = file.read()
         exec(script_content)
@@ -1030,15 +1014,14 @@ button_frame.pack(pady=10)
 # Create a button in the Tkinter window to start the assistant task
 assistant_button = ttk.Button(button_frame, text="Start Assistant", command=lambda: threading.Thread(target=TaskExe).start(), style='TButton')
 assistant_button.pack(side=tk.LEFT, padx=5)
-# Create a button to open the manual input file
+# Create a button to open the manual input filE
 manual_input_button = ttk.Button(button_frame, text="Chat Bot", command=open_manual_input_file, style='TButton')
 manual_input_button.pack(side=tk.LEFT, padx=5)
-
-
 
 # Create an "Exit" button
 exit_button = ttk.Button(button_frame, text="Exit", command=window.destroy, style='Exit.TButton')
 exit_button.pack(side=tk.LEFT, padx=5)
+
 
 # Function to handle window closing
 def on_close():
