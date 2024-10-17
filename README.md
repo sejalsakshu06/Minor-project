@@ -1,4 +1,4 @@
-VERTIGO - Desktop Assistant
+#VERTIGO - Desktop Assistant
 
 
 VERTIGO is a Python-based voice-enabled personal assistant with a Tkinter GUI. It assists users by responding to voice commands, offering features such as real-time weather updates, joke delivery, music playback, news fetching, and more. The assistant is designed to streamline daily tasks and enhance productivity through an interactive user-friendly interface.
@@ -21,7 +21,7 @@ wikipedia: Fetches general knowledge.
 APIs:
 OpenWeatherMap API
 News API
-# Vertigo ai assistant
+
 ppt link :-https://www.canva.com/design/DAF17UQtdf4/BHEHNx68faHAx70942ClWw/view?utm_content=DAF17UQtdf4&utm_campaign=designshare&utm_medium=link&utm_source=editor
 Installation & Setup
 Prerequisites:
